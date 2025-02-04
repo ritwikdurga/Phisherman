@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Phisherman kkk",
+    "name": "Phisherman",
     "version": "1.2",
-    "description": "A browser extension to detect and block phishing websites.",
+    "description": "A browser extension to analyzes, detects and blocks phishing websites.",
     "action": {
         "default_popup": "./html/popup.html"
     },
