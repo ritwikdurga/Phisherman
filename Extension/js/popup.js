@@ -1,31 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
   const urlInput = document.getElementById("urlInput");
   const goButton = document.getElementById("goButton");
   const clearButton = document.getElementById("clearButton");
   const responseSection = document.getElementById("response");
-  const themeToggle = document.getElementById("themeToggle");
-  const themeIcon = themeToggle.querySelector(".material-symbols-outlined");
   const closePopup = document.getElementById("closePopup");
 
   let currentUrl = "";
 
+  // Function to update the theme icon
+  function updateThemeIcon() {
+    const isDarkMode = document.body.classList.contains("dark-mode");
+    themeIcon.src = isDarkMode
+      ? "../resources/dark_mode_img.png"
+      : "../resources/light_mode_img.png";
+  }
+
   // Check for saved theme preference
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
-    themeIcon.textContent = "light_mode";
   }
 
+  // Toggle theme on button click
   themeToggle.addEventListener("click", function () {
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
-    themeIcon.textContent = isDark ? "light_mode" : "dark_mode";
     localStorage.setItem("theme", isDark ? "dark" : "light");
+    updateThemeIcon();
   });
+
+  updateThemeIcon(); // Set initial state of the theme icon
 
   closePopup.addEventListener("click", function () {
-    window.close(); // Closes the popup
+    window.close(); // Close the popup
   });
 
+  // Retrieve the current URL
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (tabs.length === 0 || !tabs[0].url) return;
 
@@ -37,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Function to check if a site is blocked
   function isSiteBlocked(url, callback) {
     chrome.storage.local.get({ blockedSites: [] }, (data) => {
       const blockedSites = data.blockedSites;
@@ -45,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Handle "Go" button click to analyze the URL
   goButton.addEventListener("click", function () {
     const url = urlInput.value.trim();
     responseSection.innerHTML = "";
@@ -159,11 +172,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Handle "Clear" button click
   clearButton.addEventListener("click", function () {
     urlInput.value = "";
     responseSection.innerHTML = "";
   });
 
+  // Function to validate the URL
   function isValidUrl(url) {
     try {
       new URL(url);

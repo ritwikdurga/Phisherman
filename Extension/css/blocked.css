@@ -1,0 +1,77 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 10px;
+    min-width: 320px;
+    background-color: #f9f9f9;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#blockedList {
+    list-style: none;
+    padding: 0;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* No blocked websites message */
+.no-blocked {
+    font-size: 25px;
+    /* Increased text size */
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.blocked-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 12px 18px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.domain-info {
+    display: flex;
+    align-items: center;
+}
+
+.domain-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.domain-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.unblock-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.unblock-button:hover {
+    background-color: #c9302c;
+}
