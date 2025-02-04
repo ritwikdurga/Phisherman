@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phisherman</title>
+    <link rel="stylesheet" href="../css/popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Phisherman</h1>
+            <div class="header-icons">
+                <button id="themeToggle">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <button id="closePopup">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <input type="text" id="urlInput" placeholder="Enter URL here">
+        </div>
+
+        <div class="button-section">
+            <button id="goButton">Go</button>
+            <button id="clearButton">Clear</button>
+        </div>
+
+        <div id="response" class="response-section"></div>
+
+        <a href="blocked.html" target="_blank"
+            style="font-size: 12px; color: #777; text-decoration: none; margin-top: 10px; display: block;">
+            Manage Blocked Websites
+        </a>
+    </div>
+
+    <script src="../js/popup.js"></script>
+</body>
+
+</html>

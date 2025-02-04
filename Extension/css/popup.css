@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 10px;
+    min-width: 320px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    padding: 5px 0;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+#themeToggle {
+    margin-right: -5px;
+}
+
+#closePopup {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+#themeToggle,
+#closePopup {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: end;
+}
+
+#themeToggle:hover,
+#closePopup:hover {
+    transform: scale(1.1);
+}
+
+.input-section {
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input[type="text"]:focus {
+    border-color: #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.button-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+#goButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#goButton:hover {
+    background-color: #45a049;
+}
+
+#clearButton {
+    background-color: #f44336;
+    color: white;
+}
+
+#clearButton:hover {
+    background-color: #e53935;
+}
+
+.response-section {
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.dark-mode {
+    background-color: #181818;
+    color: #fff;
+}
+
+.dark-mode h1 {
+    color: #fff;
+}
+
+.dark-mode input[type="text"] {
+    border: 2px solid #555;
+    background-color: #222;
+    color: white;
+}
+
+.dark-mode input[type="text"]:focus {
+    border-color: #c3c3c3;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+.dark-mode button {
+    color: white;
+}
+
+.dark-mode #goButton {
+    background-color: #388E3C;
+}
+
+.dark-mode #goButton:hover {
+    background-color: #2E7D32;
+}
+
+.dark-mode #clearButton {
+    background-color: #D32F2F;
+}
+
+.dark-mode #clearButton:hover {
+    background-color: #B71C1C;
+}
