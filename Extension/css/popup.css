@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -38,11 +40,39 @@ body {
 }
 
 h1 {
-    font-size: 20px;
-    font-weight: 600;
+    font-family: "Spicy rice", sans-serif;
+    font-size: 22px;
+    font-weight: 400;
     color: #333;
     margin: 0;
 }
+
+.safe-text {
+    font-family: 'Allerta', sans-serif;
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+.phishy-text {
+    font-family: 'Allerta', sans-serif;
+    font-weight: 700;
+    color: #d32f2f;
+}
+
+.disclaimer-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    color: #777;
+    margin-top: 15px;
+}
+
+.block-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 
 .header-icons {
     display: flex;

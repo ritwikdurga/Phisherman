@@ -80,69 +80,61 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         responseSection.innerHTML = `
-              <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: ${
-                isPhishy ? "#ffebee" : "#e8f5e9"
-              };">
-                  <h2 style="color: ${isPhishy ? "#d32f2f" : "#2e7d32"};">
-                      ${
-                        isPhishy
-                          ? "⚠️ Phishy URL Detected!"
-                          : "✅ Safe URL Detected!"
-                      }
-                  </h2>
-                  <p style="color: #333;">
-                      ${
-                        isSameUrl
-                          ? isPhishy
-                            ? "The URL you are currently in is potentially dangerous. Do not proceed."
-                            : "The URL you are currently in seems safe."
-                          : isPhishy
-                          ? "The URL you entered is potentially dangerous. Do not proceed."
-                          : "The URL you entered seems safe."
-                      }
-                  </p>
-                  ${
-                    !isSameUrl
-                      ? `
-                      <div style="margin-top: 15px;">
-                          <a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" style="
-                              display: inline-block;
-                              padding: 10px 15px;
-                              border-radius: 5px;
-                              text-decoration: none;
-                              font-weight: bold;
-                              color: white;
-                              background-color: ${
-                                isPhishy ? "#d32f2f" : "#2e7d32"
-                              };
-                          ">
-                              ${isPhishy ? "⚠️ Proceed Anyway" : "Open Website"}
-                          </a>
-                      </div>
-                  `
-                      : ""
-                  }
-                  ${
-                    !isBlocked
-                      ? `
-                      <div style="margin-top: 10px;">
-                          <a href="#" id="blockLink" style="
-                              display: inline-block;
-                              color: ${isPhishy ? "#d32f2f" : "#2e7d32"};
-                              text-decoration: underline;
-                              cursor: pointer;
-                          ">
-                              Block this website
-                          </a>
-                      </div>
-                  `
-                      : ""
-                  }
-                  <p style="font-size: 11px; color: #777; margin-top: 15px;">
-                      This is an AI-generated result and may not be 100% accurate. Be cautious when opening links.
-                  </p>
-              </div>
-            `;
+    <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: ${
+      isPhishy ? "#ffebee" : "#e8f5e9"
+    };">
+        <h2 class="${isPhishy ? "phishy-text" : "safe-text"}">
+            ${isPhishy ? "⚠️ Phishy URL Detected!" : "✅ Safe URL Detected!"}
+        </h2>
+        <p class="safe-text phishy-text">
+            ${
+              isSameUrl
+                ? isPhishy
+                  ? "The URL you are currently in is potentially dangerous. Do not proceed."
+                  : "The URL you are currently in seems safe."
+                : isPhishy
+                ? "The URL you entered is potentially dangerous. Do not proceed."
+                : "The URL you entered seems safe."
+            }
+        </p>
+        ${
+          !isSameUrl
+            ? `
+            <div style="margin-top: 15px;">
+                <a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" style="
+                    display: inline-block;
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    color: white;
+                    background-color: ${isPhishy ? "#d32f2f" : "#2e7d32"};
+                    font-family: 'Inter', sans-serif;
+                ">
+                    ${isPhishy ? "⚠️ Proceed Anyway" : "Open Website"}
+                </a>
+            </div>
+        `
+            : ""
+        }
+        ${
+          !isBlocked
+            ? `
+            <div style="margin-top: 10px;">
+                <a href="#" id="blockLink" class="block-link" style="color: ${
+                  isPhishy ? "#d32f2f" : "#2e7d32"
+                };">
+                    Block this website
+                </a>
+            </div>
+        `
+            : ""
+        }
+        <p class="disclaimer-text">
+            This is an AI-generated result and may not be 100% accurate. Be cautious when opening links.
+        </p>
+    </div>
+`;
 
         if (!isBlocked) {
           document
