@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
               isSameUrl
                 ? isPhishy
                   ? "The URL you are currently in is potentially dangerous. Do not proceed."
-                  : "The URL you are currently in seems safe."
+                  : "The URL you are currently in is safe."
                 : isPhishy
                 ? "The URL you entered is potentially dangerous. Do not proceed."
                 : "The URL you entered seems safe."

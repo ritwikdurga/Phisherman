@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -43,18 +43,18 @@ h1 {
     font-family: "Spicy rice", sans-serif;
     font-size: 22px;
     font-weight: 400;
-    color: #333;
+    color: #094377;
     margin: 0;
 }
 
 .safe-text {
-    font-family: 'Allerta', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     color: #2e7d32;
 }
 
 .phishy-text {
-    font-family: 'Allerta', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     color: #d32f2f;
 }
@@ -180,12 +180,12 @@ button:hover {
 }
 
 .dark-mode {
-    background-color: #181818;
+    background-color: #222222;
     color: #fff;
 }
 
 .dark-mode h1 {
-    color: #fff;
+    color: #ffe66d;
 }
 
 .dark-mode input[type="text"] {
