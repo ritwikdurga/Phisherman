@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateThemeIcon() {
     const isDarkMode = document.body.classList.contains("dark-mode");
     themeIcon.src = isDarkMode
-      ? "../resources/dark_mode_img.png"
+      ? "../resources/dark_mode_img.jpg"
       : "../resources/light_mode_img.png";
   }
 
