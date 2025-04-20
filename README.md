@@ -55,9 +55,9 @@ Before you can start using this project, you need to set up your environment. Fo
 
    Clone the Phisherman repository to your local machine:
 
-     ```bash
-     git clone https://github.com/ritwikdurga/Phisherman.git
-     ```
+      ```bash
+      git clone https://github.com/ritwikdurga/Phisherman.git
+      ```
 
 3. **Install Project Dependencies:**
 
