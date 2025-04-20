@@ -57,61 +57,87 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Function to validate the URL
+  function isValidUrl(url) {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   // Handle "Go" button click to analyze the URL
   goButton.addEventListener("click", function () {
     const url = urlInput.value.trim();
-    var isPhishy;
     responseSection.innerHTML = "";
-    fetch('http://localhost:5000/predict', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ "url": url })
+
+    // Check if the URL is valid before proceeding
+    if (!isValidUrl(url)) {
+      responseSection.innerHTML = `<p style="color: #d32f2f; font-weight: bold;">❌ Please enter a valid URL.</p>`;
+      return;
+    }
+
+    // Display "Checking URL..." message
+    responseSection.innerHTML = `
+      <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: #e0f7fa;">
+        <p style="color: #18181b; font-weight: bold;">🔍 Checking URL...</p>
+      </div>
+    `;
+
+    // Initiate API call
+    fetch("http://localhost:5050/predict", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: url }),
     })
-    .then(res => res.json())
-    .then(data => {
-      isPhishy = !(data.prediction);
-      console.log(data);
-      if (isValidUrl(url)) {
+      .then((res) => res.json())
+      .then((data) => {
+        const isPhishy = !data.prediction;
+        console.log(data);
+
         const formattedUrl = new URL(url).href;
         const domain = new URL(url).hostname;
         const isSameUrl = formattedUrl === currentUrl;
-  
+
         isSiteBlocked(url, (isBlocked) => {
           if (isBlocked) {
             responseSection.innerHTML = `
-                  <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: #ffebee;">
-                      <h2 style="color: #d32f2f;">❌ This site is blocked!</h2>
-                      <p style="color: #333;">${domain} is in your blocked list.</p>
-                  </div>
-                `;
+              <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: #ffebee;">
+                <h2 style="color: #d32f2f;">❌ This site is blocked!</h2>
+                <p style="color: #333;">${domain} is in your blocked list.</p>
+              </div>
+            `;
             return;
           }
-  
+
           responseSection.innerHTML = `
-      <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: ${
-        isPhishy ? "#ffebee" : "#e8f5e9"
-      };">
-          <h2 class="${isPhishy ? "phishy-text" : "safe-text"}">
-              ${isPhishy ? "⚠️ Phishy URL Detected!" : "✅ Safe URL Detected!"}
-          </h2>
-          <p class="safe-text phishy-text">
+            <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: ${
+              isPhishy ? "#ffebee" : "#e8f5e9"
+            };">
+              <h2 class="${isPhishy ? "phishy-text" : "safe-text"}">
+                ${
+                  isPhishy ? "⚠️ Phishy URL Detected!" : "✅ Safe URL Detected!"
+                }
+              </h2>
+              <p class="${isPhishy ? "phishy-text" : "safe-text"}" >
+                ${
+                  isSameUrl
+                    ? isPhishy
+                      ? "The URL you are currently in is potentially dangerous. Do not proceed."
+                      : "The URL you are currently in is safe."
+                    : isPhishy
+                    ? "The URL you entered is potentially dangerous. Do not proceed."
+                    : "The URL you entered seems safe."
+                }
+              </p>
               ${
-                isSameUrl
-                  ? isPhishy
-                    ? "The URL you are currently in is potentially dangerous. Do not proceed."
-                    : "The URL you are currently in is safe."
-                  : isPhishy
-                  ? "The URL you entered is potentially dangerous. Do not proceed."
-                  : "The URL you entered seems safe."
-              }
-          </p>
-          ${
-            !isSameUrl
-              ? `
-              <div style="margin-top: 15px;">
-                  <a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" style="
+                !isSameUrl
+                  ? `
+                  <div style="margin-top: 15px;">
+                    <a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" style="
                       display: inline-block;
                       padding: 10px 15px;
                       border-radius: 5px;
@@ -120,32 +146,32 @@ document.addEventListener("DOMContentLoaded", function () {
                       color: white;
                       background-color: ${isPhishy ? "#d32f2f" : "#2e7d32"};
                       font-family: 'Inter', sans-serif;
-                  ">
+                    ">
                       ${isPhishy ? "⚠️ Proceed Anyway" : "Open Website"}
-                  </a>
-              </div>
-          `
-              : ""
-          }
-          ${
-            !isBlocked
-              ? `
-              <div style="margin-top: 10px;">
-                  <a href="#" id="blockLink" class="block-link" style="color: ${
-                    isPhishy ? "#d32f2f" : "#2e7d32"
-                  };">
+                    </a>
+                  </div>
+                `
+                  : ""
+              }
+              ${
+                !isBlocked
+                  ? `
+                  <div style="margin-top: 10px;">
+                    <a href="#" id="blockLink" class="block-link" style="color: ${
+                      isPhishy ? "#d32f2f" : "#2e7d32"
+                    };">
                       Block this website
-                  </a>
-              </div>
-          `
-              : ""
-          }
-          <p class="disclaimer-text">
-              This is an AI-generated result and may not be 100% accurate. Be cautious when opening links.
-          </p>
-      </div>
-  `;
-  
+                    </a>
+                  </div>
+                `
+                  : ""
+              }
+              <p class="disclaimer-text" style="margin-top: 30px; font-size: 12px; color: #757575;">
+                This is an AI-generated result and may not be 100% accurate. Be cautious when opening links.
+              </p>
+            </div>
+          `;
+
           if (!isBlocked) {
             document
               .getElementById("blockLink")
@@ -169,13 +195,11 @@ document.addEventListener("DOMContentLoaded", function () {
               });
           }
         });
-      } else {
-        responseSection.innerHTML = `<p style="color: #d32f2f; font-weight: bold;">❌ Please enter a valid URL.</p>`;
-      }
-    });
-    
-
-
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        responseSection.innerHTML = `<p style="color: #d32f2f; font-weight: bold;">❌ An error occurred while checking the URL.</p>`;
+      });
   });
 
   // Handle "Clear" button click
@@ -183,14 +207,4 @@ document.addEventListener("DOMContentLoaded", function () {
     urlInput.value = "";
     responseSection.innerHTML = "";
   });
-
-  // Function to validate the URL
-  function isValidUrl(url) {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
-  }
 });

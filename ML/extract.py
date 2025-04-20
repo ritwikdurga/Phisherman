@@ -392,7 +392,7 @@ def calculate_pagerank(url, damping_factor=0.85, iterations=100):
         params = {
             "engine": "google",
             "q": f"site:{url}",
-            "api_key": "API_KEY"
+            "api_key": "ca8a8f222f93d3b49cae7516b04fe753e32437cccfeb4e355c5ef76171a7cc8e"
         }
         response = requests.get("https://serpapi.com/search", params=params)
         data = response.json()
@@ -432,7 +432,7 @@ def number_of_links_pointing(url, soup):
 # VirusTotal Check Function (unchanged but with added comment)
 def check_virustotal(url):
     # Replace "API_KEY_HERE" with a valid VirusTotal API key from https://www.virustotal.com/gui/home/search
-    API_KEY = "API_KEY"
+    API_KEY = "ca5231b5b2231bc33acb94bb7627e0b9c1d3ff9338ebb0a07146b6c4372ff893"
     headers = {
         "x-apikey": API_KEY,
         "accept": "application/json",
@@ -498,9 +498,9 @@ def run_checks(url):
     }
 
     print(f"\nSecurity Analysis for: {url}\n{'=' * 50}")
-    for feature, (score, reason) in features.items():
-        status = "SAFE" if score == 1 else "WARNING" if score == 0 else "DANGER"
-        print(f"{feature:25} [{status:^7}] {reason} (Score: {score})")
+    # for feature, (score, reason) in features.items():
+    #     status = "SAFE" if score == 1 else "WARNING" if score == 0 else "DANGER"
+    #     print(f"{feature:25} [{status:^7}] {reason} (Score: {score})")
 
     scores = []
     for feature, (score, reason) in features.items():
