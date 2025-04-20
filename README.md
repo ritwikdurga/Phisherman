@@ -1,10 +1,9 @@
-# Phisherman
-A browser extension that helps analyze, detect and block suspicious URLs.
 
 ```
 Phisherman
 ├─ Extension
 │  ├─ css
+│  │  ├─ Shadow Hand Font.ttf
 │  │  ├─ blocked.css
 │  │  └─ popup.css
 │  ├─ html
@@ -16,10 +15,17 @@ Phisherman
 │  │  └─ popup.js
 │  ├─ manifest.json
 │  └─ resources
-│     ├─ dark_mode_img.png
+│     ├─ dark_mode_img.jpg
+│     ├─ icons
+│     │  ├─ 128by128.png
+│     │  ├─ 16by16.png
+│     │  ├─ 48by48.png
+│     │  ├─ icon128.png
+│     │  ├─ icon16.png
+│     │  └─ icon48.png
 │     └─ light_mode_img.png
 ├─ LICENSE
-├─ Model
+├─ ML
 │  ├─ elm.py
 │  ├─ extract.py
 │  ├─ model.txt
@@ -29,12 +35,13 @@ Phisherman
 │     ├─ Training Dataset.arff
 │     └─ train.csv
 ├─ README.md
-└─ pickle_files
-   ├─ best_elm.pkl
-   ├─ elm_model.pkl
-   ├─ ensemble_elm.pkl
-   ├─ nb_model.pkl
-   ├─ scaler.pkl
-   └─ svm_model.pkl
+├─ models
+│  ├─ bagging_ensemble.pkl
+│  ├─ enhanced_elm.pkl
+│  ├─ enhanced_ensemble.pkl
+│  ├─ scaler.pkl
+│  └─ stacking_ensemble.pkl
+└─ server
+   └─ app.py
 
 ```
