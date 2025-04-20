@@ -256,9 +256,9 @@ POST https://www.virustotal.com/api/v3/urls
 
 ## Authors
 
-- **[@ritwikdurga]**(https://www.github.com/ritwikdurga)
-- **[@Nandu-25]**(https://github.com/Nandu-25)
-- **[@sudeepreddy999]**(https://github.com/sudeepreddy999)
+- [**ritwikdurga**](https://www.github.com/ritwikdurga)
+- [**Nandu-25**](https://www.github.com/Nandu-25)
+- [**sudeepreddy999**](https://github.com/sudeepreddy999)
 
 ## License
 
