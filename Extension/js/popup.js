@@ -60,108 +60,122 @@ document.addEventListener("DOMContentLoaded", function () {
   // Handle "Go" button click to analyze the URL
   goButton.addEventListener("click", function () {
     const url = urlInput.value.trim();
+    var isPhishy;
     responseSection.innerHTML = "";
-
-    if (isValidUrl(url)) {
-      const formattedUrl = new URL(url).href;
-      const domain = new URL(url).hostname;
-      const isSameUrl = formattedUrl === currentUrl;
-      const isPhishy = Math.random() < 0.5;
-
-      isSiteBlocked(url, (isBlocked) => {
-        if (isBlocked) {
+    fetch('http://localhost:5000/predict', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "url": url })
+    })
+    .then(res => res.json())
+    .then(data => {
+      isPhishy = !(data.prediction);
+      console.log(data);
+      if (isValidUrl(url)) {
+        const formattedUrl = new URL(url).href;
+        const domain = new URL(url).hostname;
+        const isSameUrl = formattedUrl === currentUrl;
+  
+        isSiteBlocked(url, (isBlocked) => {
+          if (isBlocked) {
+            responseSection.innerHTML = `
+                  <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: #ffebee;">
+                      <h2 style="color: #d32f2f;">❌ This site is blocked!</h2>
+                      <p style="color: #333;">${domain} is in your blocked list.</p>
+                  </div>
+                `;
+            return;
+          }
+  
           responseSection.innerHTML = `
-                <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: #ffebee;">
-                    <h2 style="color: #d32f2f;">❌ This site is blocked!</h2>
-                    <p style="color: #333;">${domain} is in your blocked list.</p>
-                </div>
-              `;
-          return;
-        }
-
-        responseSection.innerHTML = `
-    <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: ${
-      isPhishy ? "#ffebee" : "#e8f5e9"
-    };">
-        <h2 class="${isPhishy ? "phishy-text" : "safe-text"}">
-            ${isPhishy ? "⚠️ Phishy URL Detected!" : "✅ Safe URL Detected!"}
-        </h2>
-        <p class="safe-text phishy-text">
-            ${
-              isSameUrl
-                ? isPhishy
-                  ? "The URL you are currently in is potentially dangerous. Do not proceed."
-                  : "The URL you are currently in is safe."
-                : isPhishy
-                ? "The URL you entered is potentially dangerous. Do not proceed."
-                : "The URL you entered seems safe."
-            }
-        </p>
-        ${
-          !isSameUrl
-            ? `
-            <div style="margin-top: 15px;">
-                <a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" style="
-                    display: inline-block;
-                    padding: 10px 15px;
-                    border-radius: 5px;
-                    text-decoration: none;
-                    font-weight: bold;
-                    color: white;
-                    background-color: ${isPhishy ? "#d32f2f" : "#2e7d32"};
-                    font-family: 'Inter', sans-serif;
-                ">
-                    ${isPhishy ? "⚠️ Proceed Anyway" : "Open Website"}
-                </a>
-            </div>
-        `
-            : ""
-        }
-        ${
-          !isBlocked
-            ? `
-            <div style="margin-top: 10px;">
-                <a href="#" id="blockLink" class="block-link" style="color: ${
-                  isPhishy ? "#d32f2f" : "#2e7d32"
-                };">
-                    Block this website
-                </a>
-            </div>
-        `
-            : ""
-        }
-        <p class="disclaimer-text">
-            This is an AI-generated result and may not be 100% accurate. Be cautious when opening links.
-        </p>
-    </div>
-`;
-
-        if (!isBlocked) {
-          document
-            .getElementById("blockLink")
-            .addEventListener("click", function (e) {
-              e.preventDefault();
-              chrome.storage.local.get({ blockedSites: [] }, (data) => {
-                if (!data.blockedSites.includes(domain)) {
-                  const updatedSites = [...data.blockedSites, domain];
-                  chrome.storage.local.set(
-                    { blockedSites: updatedSites },
-                    () => {
-                      chrome.runtime.sendMessage({
-                        action: "updateBlockedSites",
-                        sites: updatedSites,
-                      });
-                      responseSection.innerHTML = `<p style="color: #2e7d32;">✅ ${domain} has been blocked.</p>`;
-                    }
-                  );
-                }
+      <div style="max-width: 400px; padding: 20px; border-radius: 10px; text-align: center; background-color: ${
+        isPhishy ? "#ffebee" : "#e8f5e9"
+      };">
+          <h2 class="${isPhishy ? "phishy-text" : "safe-text"}">
+              ${isPhishy ? "⚠️ Phishy URL Detected!" : "✅ Safe URL Detected!"}
+          </h2>
+          <p class="safe-text phishy-text">
+              ${
+                isSameUrl
+                  ? isPhishy
+                    ? "The URL you are currently in is potentially dangerous. Do not proceed."
+                    : "The URL you are currently in is safe."
+                  : isPhishy
+                  ? "The URL you entered is potentially dangerous. Do not proceed."
+                  : "The URL you entered seems safe."
+              }
+          </p>
+          ${
+            !isSameUrl
+              ? `
+              <div style="margin-top: 15px;">
+                  <a href="${formattedUrl}" target="_blank" rel="noopener noreferrer" style="
+                      display: inline-block;
+                      padding: 10px 15px;
+                      border-radius: 5px;
+                      text-decoration: none;
+                      font-weight: bold;
+                      color: white;
+                      background-color: ${isPhishy ? "#d32f2f" : "#2e7d32"};
+                      font-family: 'Inter', sans-serif;
+                  ">
+                      ${isPhishy ? "⚠️ Proceed Anyway" : "Open Website"}
+                  </a>
+              </div>
+          `
+              : ""
+          }
+          ${
+            !isBlocked
+              ? `
+              <div style="margin-top: 10px;">
+                  <a href="#" id="blockLink" class="block-link" style="color: ${
+                    isPhishy ? "#d32f2f" : "#2e7d32"
+                  };">
+                      Block this website
+                  </a>
+              </div>
+          `
+              : ""
+          }
+          <p class="disclaimer-text">
+              This is an AI-generated result and may not be 100% accurate. Be cautious when opening links.
+          </p>
+      </div>
+  `;
+  
+          if (!isBlocked) {
+            document
+              .getElementById("blockLink")
+              .addEventListener("click", function (e) {
+                e.preventDefault();
+                chrome.storage.local.get({ blockedSites: [] }, (data) => {
+                  if (!data.blockedSites.includes(domain)) {
+                    const updatedSites = [...data.blockedSites, domain];
+                    chrome.storage.local.set(
+                      { blockedSites: updatedSites },
+                      () => {
+                        chrome.runtime.sendMessage({
+                          action: "updateBlockedSites",
+                          sites: updatedSites,
+                        });
+                        responseSection.innerHTML = `<p style="color: #2e7d32;">✅ ${domain} has been blocked.</p>`;
+                      }
+                    );
+                  }
+                });
               });
-            });
-        }
-      });
-    } else {
-      responseSection.innerHTML = `<p style="color: #d32f2f; font-weight: bold;">❌ Please enter a valid URL.</p>`;
-    }
+          }
+        });
+      } else {
+        responseSection.innerHTML = `<p style="color: #d32f2f; font-weight: bold;">❌ Please enter a valid URL.</p>`;
+      }
+    });
+    
+
+
   });
 
   // Handle "Clear" button click

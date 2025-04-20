@@ -659,7 +659,6 @@ if __name__ == "__main__":
     plt.title('Stacking Ensemble Confusion Matrix')
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
-    plt.savefig('stacking_ensemble_cm.png')
     plt.close()
 
     print("\nModel training, evaluation, and saving completed successfully!")

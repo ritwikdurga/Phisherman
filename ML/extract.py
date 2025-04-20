@@ -432,7 +432,7 @@ def number_of_links_pointing(url, soup):
 # VirusTotal Check Function (unchanged but with added comment)
 def check_virustotal(url):
     # Replace "API_KEY_HERE" with a valid VirusTotal API key from https://www.virustotal.com/gui/home/search
-    API_KEY = "API_KEY_HERE"
+    API_KEY = "API_KEY"
     headers = {
         "x-apikey": API_KEY,
         "accept": "application/json",
@@ -501,6 +501,12 @@ def run_checks(url):
     for feature, (score, reason) in features.items():
         status = "SAFE" if score == 1 else "WARNING" if score == 0 else "DANGER"
         print(f"{feature:25} [{status:^7}] {reason} (Score: {score})")
+
+    scores = []
+    for feature, (score, reason) in features.items():
+        scores.append(score)
+
+    return scores
 
 if __name__ == "__main__":
     test_url = "https://www.apple.com"
