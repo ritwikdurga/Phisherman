@@ -10,8 +10,17 @@ from datetime import datetime, timezone
 import tldextract
 import dns.resolver
 import time
+from dotenv import load_dotenv
+import os
 
 requests.packages.urllib3.disable_warnings()
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access them using os.getenv
+SERP_API_KEY = os.getenv("SERPAPI_KEY")
+VT_API_KEY = os.getenv("VIRUSTOTAL_KEY")
 
 TRUSTED_CAS = [
     "GeoTrust", "GoDaddy", "Network Solutions", "Thawte", "Comodo", "Doster", "VeriSign",
@@ -392,7 +401,7 @@ def calculate_pagerank(url, damping_factor=0.85, iterations=100):
         params = {
             "engine": "google",
             "q": f"site:{url}",
-            "api_key": "API_KEY"
+            "api_key": SERP_API_KEY
         }
         response = requests.get("https://serpapi.com/search", params=params)
         data = response.json()
@@ -431,8 +440,7 @@ def number_of_links_pointing(url, soup):
 # 30. Phishing Reports - Check the number of phishing reports
 # VirusTotal Check Function (unchanged but with added comment)
 def check_virustotal(url):
-    # Replace "API_KEY_HERE" with a valid VirusTotal API key from https://www.virustotal.com/gui/home/search
-    API_KEY = "API_KEY_HERE"
+    API_KEY = VT_API_KEY
     headers = {
         "x-apikey": API_KEY,
         "accept": "application/json",

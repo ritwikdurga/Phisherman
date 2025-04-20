@@ -1,0 +1,15 @@
+numpy==1.26.4
+pandas==2.2.2
+matplotlib==3.8.4
+seaborn==0.13.2
+scikit-learn==1.5.0
+python-whois==0.9.4
+requests==2.32.3
+googlesearch-python==1.2.1
+beautifulsoup4==4.12.3
+tldextract==5.1.2
+dnspython==2.6.1
+flask==3.0.3
+flask-cors==4.0.1
+mlxtend==0.23.1
+joblib==1.4.2
