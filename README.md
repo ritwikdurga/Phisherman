@@ -1,5 +1,8 @@
+<h1>
+  <img src="/Extension/resources/images/dark_mode_img.jpg" alt="Logo" width="50" style="position: relative; top: 20px; margin-right: 10px;">
+  Phisherman - Secure Browsing Made Easy
+</h1>
 
-## ![Logo](/Extension/resources/images/dark_mode_img.jpg)Phisherman - Secure Browsing Made Easy
 
 Phisherman is a browser extension designed to protect users from phishing attacks by analyzing, detecting, and blocking suspicious URLs in real-time. Leveraging a machine learning-powered backend and third-party APIs, it ensures safer web navigation through both automatic and manual URL analysis.
 
